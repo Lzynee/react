@@ -1,0 +1,24 @@
+<!-- 자바스크립트 실행 순서 실습 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Bin</title>
+  <!-- 첫 번째로 실행된다. (head 태그) -->
+  <script type="text/javascript">
+    console.log('head');
+  </script>
+</head>
+<body>
+  <!-- 두 번째로 실행된다. (body 태그) -->
+  <script type="text/javascript">
+    console.log('body');
+  </script>
+</body>
+</html>
+<!-- 세 번째로 실행된다. (html 태그 바깥) -->
+<script type="text/javascript">
+  console.log('load');
+</script>

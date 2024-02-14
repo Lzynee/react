@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- 이벤트 등록 실습 -->
+
+<html lang="en">
+  <head>
+    <title>Event Test</title>
+    <script type="text/javascript">
+      const clickEvent = function () {
+        // console.log('click');
+
+        document.getElementById("box").innerText = "click"; // blank => click
+
+        const list = document.getElementById("list");
+        console.log(list); // <ul id="list"> ... </ul>
+
+        const liList = document.getElementsByTagName("li");
+        console.log(list.getElementsByTagName("li")); // HTMLCollection(3) [li, li, li]
+
+        for (let index = 0; index < liList.length; index++) {
+          const element = liList[index];
+          liList[index].innerText = "click" + (index + 1);
+          console.log(liList[index]);  // <li>"click1"</li>, <li>"click2"</li>, ...
+        }
+      };
+
+      // id="btn"인 DOM 요소를 찾는다. (실패)
+      console.log(document.getElementById("btn")); // null; js 실행 순서상 해당 값을 읽어올 수 없다.
+      // id="btn"인 DOM 요소를 찾는다. (성공)
+      window.onload = function () {
+        // body page loading 완료 후 발생하는 이벤트로 딱 한 번 실행
+        // id="btn"인 DOM 요소를 찾고, 해당 요소를 클릭하면 clickEvent() 함수를 실행한다.
+        document.getElementById("btn").onclick = function () {
+          clickEvent();
+        };
+        // 잘못된 사례 : 함수를 바로 호출 (버튼을 클릭하지 않아도, 문서를 로딩하는 즉시 clickEvent()이 실행된다.)
+        // document.getElementById("btn").onclick = clickEvent();
+      };
+    </script>
+  </head>
+  <body>
+    <!-- 1. 태그에 직접 이벤트 등록 (속성 등록) -->
+    <!-- <button onclick="javascript:clickEvent();">click</button> -->
+
+    <!-- 1-1. 속성 대신 DOM 사용 방식으로 교체 -->
+    <button id="btn">click</button>
+
+    <!-- 2. DOM 객체를 이용하여 접근 -->
+    <div id="box">blank</div>
+
+    <ul id="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </body>
+</html>
