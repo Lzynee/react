@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>new document</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript">
+      const init = function () {
+        // todo: 체크박스에 체크한 경우, 선택 여부를 판별하는 코드
+
+        const mailIdList = document.getElementsByName("mailId"); // name="mailId"인 요소에 접근한다.
+        const checkAllInput = document.getElementById("checkAll"); // 전체 선택 체크박스
+
+        /* 삭제 기능 구현 */
+        document.getElementById("delBtn").onclick = function () {
+					// 선택된 요소가 없으면 경고창을 생성한다.
+          let check = false;
+
+          // checked 속성인 요소가 있으면 for-loop에서 빠져나온다.
+          for (let index = 0; index < mailIdList.length; index++) {
+
+            if (mailIdList[index].checked) {
+              check = true;
+              break;
+            }
+          }
+
+					// checked 속성인 요소가 없으면 경고창을 생성한다.
+					if (!check) {
+						console.log("최소 한 개를 선택해 주셔야 합니다.");
+
+					} else {
+						console.log("삭제 성공");
+					}
+          
+        };
+
+        /* 체크박스의 전체 선택 기능 구현 */
+        checkAllInput.onclick = function () {
+          // 체크되어 있으면 전체 목록의 선택을 해제
+          // 체크되어 있지 않으면 전체 목록을 선택
+          for (let index = 0; index < mailIdList.length; index++) {
+
+            mailIdList[index].checked = this.checked; // checked 속성값을 전체 선택 버튼의 선택 여부와 동일해지도록 지정
+
+            const mailIdTr = document.getElementById(
+              "mailId_" + mailIdList[index].value
+            );
+
+            if (this.checked) {
+              mailIdTr.className = "selected";
+							
+
+            } else {
+              mailIdTr.className = "";
+            }
+
+          }
+        };
+
+        /* checkbox의 속성 checked=true인 요소를 찾는다. */
+        // for-loop
+        for (let index = 0; index < mailIdList.length; index++) {
+
+          // 클릭 이벤트를 발생시켜 checked 됐는지 확인한다.
+          mailIdList[index].onclick = function () {
+
+            // checked 된 mailId를 찾는다 : id = mailId_${value}
+            const mailIdTr = document.getElementById("mailId_" + this.value);
+
+            if (this.checked) {
+              mailIdTr.className = "selected"; // 참이면 'selected' ClassName을 부여한다.
+
+            } else {
+              mailIdTr.className = ""; // 거짓이면 ClassName을 지운다.
+            }
+
+						checkAllInput.checked = false;
+          };
+        }
+        // end of for-loop
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <input type="button" id="delBtn" class="delBtn" value="삭제" />
+    <table id="mailList">
+      <caption>
+        메일폼
+      </caption>
+      <colgroup>
+        <col width="10%" />
+        <col width="10%" />
+        <col width="*" />
+        <col width="10%" />
+        <col width="10%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="checkAll" /></th>
+          <th>보낸사람</th>
+          <th>제목</th>
+          <th>날짜</th>
+          <th>크기</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="mailId_10">
+          <td><input type="checkbox" name="mailId" value="10" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_9">
+          <td><input type="checkbox" name="mailId" value="9" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_8">
+          <td><input type="checkbox" name="mailId" value="8" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_7">
+          <td><input type="checkbox" name="mailId" value="7" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_6">
+          <td><input type="checkbox" name="mailId" value="6" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_5">
+          <td><input type="checkbox" name="mailId" value="5" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_4">
+          <td><input type="checkbox" name="mailId" value="4" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_3">
+          <td><input type="checkbox" name="mailId" value="3" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_2">
+          <td><input type="checkbox" name="mailId" value="2" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+        <tr id="mailId_1">
+          <td><input type="checkbox" name="mailId" value="1" /></td>
+          <td>양영보</td>
+          <td>메일제목입니다.</td>
+          <td>2024.02.14</td>
+          <td>23kb</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
