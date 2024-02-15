@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jquery</title>
+    <!-- jquery CDN -->
+    <script
+      YB
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+    ></script>
+    <script type="text/javascript">
+      const init = function () {
+        /* #box 찾기 */
+        // $("#box").innerText("click");  // is not a function 오류 발생 : jquery로 찾았으면 jquery 문법을 끝까지 사용해야 한다.
+        // $("#box").text("click");  // jquery로 찾았으면 jquery 문법을 끝까지 사용해야 한다.
+
+        /* jquery를 사용해 함수 작성하기 */
+        $("#box").on("click", function () {
+          // this.innerText = "box click";
+          $(this).text("click"); // #box를 클릭하면 태그 내의 문자열을 'click'으로 바꾼다.
+          console.log($(this).attr("id")); // expected result: box
+        });
+
+        /* #addBtn에 클릭 이벤트 적용 */
+        // 태그 생성
+        $("#addBtn").on("click", function () {
+          $("#myList").append("<li>a</li>"); // 노드의 가장 끝에 <li>a</li> 요소를 생성한다.
+          $("#myList").prepend("<li>p</li>"); // 노드의 가장 앞에 <li>p</li> 요소를 생성한다.
+
+          const li = document.createElement("li"); // 빈 <li> 태그를 생성한다.
+          $("#myList").prepend(li);
+        });
+
+        // 태그 삭제
+        $("#delBtn").on("click", function () {
+          $("#box").remove();  // id="box"인 태그를 삭제한다.
+          $("#myList li:first").remove();  // #myList의 하위 <li> 중 첫 번째 요소를 삭제한다.
+          $("#myList li:last").remove();  // #myList의 하위 <li> 중 마지막 요소를 삭제한다.
+        });
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <button id="addBtn">add</button> <button id="delBtn">delete</button>
+    <ul id="myList">
+      <li>temp</li>
+    </ul>
+    <div id="box">text</div>
+  </body>
+</html>
