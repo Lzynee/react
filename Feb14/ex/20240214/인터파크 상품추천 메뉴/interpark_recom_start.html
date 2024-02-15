@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>new document</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript">
+      const init = function () {
+        /* 좌우 슬라이드 버튼에 클릭 이벤트 적용 */
+        document.getElementById("nextBtn").onclick = function () {
+          // 클릭하면 className으로 active를 가진 요소를 찾는다.
+          const activeList = pagingList.getElementsByClassName("active");
+          let num = activeList[0].num + 1;
+
+					// num이 페이지 개수를 넘어가면 0(첫 페이지의 인덱스)으로 초기화시킨다.
+          if (num >= aTagList.length) {
+						num = 0;
+          }
+
+          aTagList[num].onmouseenter(); // 버튼을 클릭하면 이벤트를 강제로 발생시킨다.
+        };
+
+        document.getElementById("prevBtn").onclick = function () {
+
+          const activeList = pagingList.getElementsByClassName("active");
+          let num = activeList[0].num - 1;
+
+					// num이 페이지 개수보다 작으면 마지막 페이지의 인덱스로 초기화시킨다.
+          if (num < 0) {
+						num = aTagList.length - 1;
+          }
+
+          aTagList[num].onmouseenter();
+				};
+
+        /* #pagingList의 a 태그에 넘버링 */
+        const pagingList = document.getElementById("pagingList"); // #pagingList를 찾는다.
+        const aTagList = pagingList.getElementsByTagName("a"); // #pagingList 내의 a 태그를 찾는다.
+
+        /* bannerList의 list 태그에 접근 */
+        const bannerList = document.getElementById("bannerList");
+        const liTagList = bannerList.getElementsByTagName("li");
+
+        /* for-loop */
+        for (let index = 0; index < aTagList.length; index++) {
+          aTagList[index].num = index; // a 태그에 인덱스 번호를 마킹해 num property를 생성한다.
+
+          /* a 태그에서 마우스오버 이벤트가 발생하면 해당 태그의 인덱스를 지정한다. */
+          // mouseover 이벤트의 경우 버블링이 발생할 수 있으므로 mouseenter 이벤트 적용
+          aTagList[index].onmouseenter = function () {
+            // 인덱스와 현재 조회 중인 태그의 넘버링을 확인한다.
+            for (let i = 0; i < aTagList.length; i++) {
+              /* i가 this.num과 같으면 a 태그 리스트의 클래스 네임으로 active를 갖게 하고,
+							다르면 active 속성을 지운다. */
+              if (i == this.num) {
+                // this는 가장 가까운 이벤트의 대상을 가리킨다.
+                aTagList[i].className = "bx-pager-link active";
+                liTagList[i].style.display = "block";
+              } else {
+                aTagList[i].className = "bx-pager-link";
+                liTagList[i].style.display = "none";
+              }
+            }
+          };
+        }
+        /* end of for-loop */
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body style="padding: 100px">
+    <div class="customerSection">
+      <div class="custom_name"><em>인터파크</em> 고객님,</div>
+      <div class="custom_tit">
+        <img src="images/tit_custom.gif" alt="이 상품은 어떠세요?" />
+      </div>
+      <div class="custom_part" style="display: block">
+        <div class="bx-wrapper" style="max-width: 310px">
+          <div class="bx-viewport">
+            <ul id="bannerList">
+              <!-- 활성화되지 않은 페이지는 숨긴다. -->
+              <li style="display: block">
+                <a href="#"><img src="images/1.jpg" alt="쇼핑추천" /></a>
+              </li>
+              <li style="display: none">
+                <a href="#"><img src="images/2.jpg" alt="도서추천" /></a>
+              </li>
+              <li style="display: none">
+                <a href="#"><img src="images/3.jpg" alt="티켓추천" /></a>
+              </li>
+
+              <li style="display: none">
+                <a href="#"><img src="images/4.jpg" alt="투어추천" /></a>
+              </li>
+            </ul>
+          </div>
+          <div class="bx-controls bx-has-pager bx-has-controls-direction">
+            <div id="pagingList" class="bx-pager bx-default-pager">
+              <!-- 활성화된 링크에 active 클래스를 부여한다. -->
+              <div class="bx-pager-item">
+                <a href="#" class="bx-pager-link active">1</a>
+              </div>
+              <div class="bx-pager-item">
+                <a href="#" class="bx-pager-link">2</a>
+              </div>
+              <div class="bx-pager-item">
+                <a href="#" class="bx-pager-link">3</a>
+              </div>
+              <div class="bx-pager-item">
+                <a href="#" class="bx-pager-link">4</a>
+              </div>
+            </div>
+            <div class="bx-controls-direction">
+              <a class="bx-prev" href="#" id="prevBtn">Prev</a>
+              <a class="bx-next" href="#" id="nextBtn">Next</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
