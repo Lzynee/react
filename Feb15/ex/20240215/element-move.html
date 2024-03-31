@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jquery</title>
+    <!-- jquery CDN -->
+    <script
+      YB
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+    ></script>
+    <script type="text/javascript">
+      const init = function () {
+        // Element move
+        $("#moveBtn").on("click", function () {
+          $("#list1").append($("#list2 li:first"));
+        });
+
+        // Tree Traversal
+        $("#checkBtn").on("click", function () {
+          // todo: #list3의 li 요소 중 태그 내에 google 문자열을 지니는 a 태그를 기준으로
+          // 형제, 부모 및 자식노드를 지정한다.
+          $("#list3 li:eq(1)").prev().text("check"); // 이전 노드
+          $("#list3 li:eq(1)").next().text("check"); // 이후 노드
+          $("#list3 li:eq(1)").parent().css("border", "1px dashed red"); // 부모 노드
+          $("#list3 li:eq(1)").find("a").text("MX");
+        });
+
+        // form properties
+        $("#sendBtn").on("click", function () {
+          // input type="text"에 입력된 값을 가져온다.
+          const idInput = $("input[name='id']").val();
+          console.log(idInput);
+        });
+
+        // keyboard event (keyup) : 키에 대한 정보를 파라미터로 입력
+        $("input[name='id']").on("keyup", function(e) {
+          if(e.key.toLowerCase() == "enter") {
+            console.log("전송");
+          }
+        });
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <form action="" method="get">
+      id : <input type="text" name="id" />
+      <button id="sendBtn" type="button">전송</button>
+    </form>
+
+    <!-- todo: 버튼을 클릭하면 list2 하위의 <li> 요소들을 list1 하위로 이동시킨다. -->
+    <button id="moveBtn">moveBtn</button>
+    <button id="checkBtn">check</button>
+    <ul id="list1"></ul>
+    <hr />
+    <ul id="list2">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <hr />
+    <ul id="list3">
+      <li><a href="#">naver</a></li>
+      <li><a href="#">google</a></li>
+      <li><a href="#">kakao</a></li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Attribute VS Property</title>
+    <script type="text/javascript">
+      const init = () => {
+        // id="btn"인 요소를 클릭하면 이벤트를 실행한다.
+        document.getElementById("btn").num = "9999";  // DOM 요소를 이용해 id="btn"인 요소에 임의의 num 값을 지정하고, 노출 최소화
+
+        document.getElementById("btn").onclick = function () {
+
+          console.log(this.num);
+
+          // id="link"인 a 태그로부터 링크 주소 정보를 가져온다.
+          // console.log(link.getAttribute("target")); // tag의 속성에 저장된 target 정보 : null
+
+          const list = document.getElementById("list");
+          const aTagList = document.getElementsByTagName("a");
+          console.log(aTagList);  // aTagList를 출력한다.
+
+          for (let index = 0; index < aTagList.length; index++) {
+            console.log(aTagList[index].getAttribute("num"));
+          }
+
+          // console.log(link.href);  // 가져온 링크 주소를 출력한다.
+          // 링크 주소와 태그 내의 텍스트를 변경한다.
+          // link.href = "http://www.google.com"; // DOM에 저장된 href 정보
+          // link.innerText = "google";
+          // link.target = "_blank"; // a target="_blank"와 같은 설정
+        };
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <button id="btn">click</button>
+    <hr />
+    <ul id="list">
+      <li><a href="https://www.naver.com" id="link1" num="1">naver</a></li>
+      <li><a href="https://www.google.com" id="link2" num="2">google</a></li>
+    </ul>
+  </body>
+</html>

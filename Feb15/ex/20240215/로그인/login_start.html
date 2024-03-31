@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>new document</title>
+    <link
+      href="css/common.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      const init = function () {
+        /* 로그인 버튼 클릭 시 전송 이벤트 */
+        // a 태그에 onclick 이벤트가 걸려 있는 경우,
+        // click 이벤트에 대해 최우선 순위로 동작한 뒤, 성공하면 a 태그의 경로로 이동하는 동작을 실행한다.
+        $("#loginBtn").on("click", function (e) {
+          e.preventDefault(); // 이중 클릭 방지
+          console.log("click");
+
+          /* validation */
+          // id validation
+          const emailValue = $.trim($("#email").val()); // 문자열 양쪽 공백 제거
+          // 아이디에 대한 입력값이 있는지 확인
+          if (emailValue == "") {
+            window.alert("아이디를 입력해 주세요.");
+            $("#email").focus(); // 커서의 포커스를 아이디 입력창으로 이동시킨다.
+            return false; // 이벤트 종결
+          }
+
+          // passwd validation
+          const passwdValue = $.trim($("#passwd").val());
+          // 비밀번호에 대한 입력값이 있는지 확인
+          if (passwdValue == "") {
+            window.alert("비밀번호를 입력해 주세요.");
+            $("#passwd").focus();
+            return false;
+          }
+          // 비밀번호 길이 확인
+          if (passwdValue.length < 5) {
+            window.alert("비밀번호는 최소 5자리 이상입니다.");
+            $("#passwd").focus();
+            return false;
+          }
+
+          console.log("login!");
+					$("form[name='frm_login']").submit();  // 폼에 접근해 전송 동작을 실행한다.
+        });
+
+        // 키보드 이벤트
+        $("#passwd").on("keyup", function (e) {
+          if (e.key.toLowerCase() == "enter") {
+            // 패스워드 창에서 엔터 키를 누르면 로그인 이벤트를 강제로 발생시킨다.
+            $("#loginBtn").trigger("click");
+          }
+        });
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <form name="frm_login" method="post" action="" class="lSearch">
+      <fieldset class="mLogin">
+        <legend>로그인</legend>
+        <h3>
+          <img
+            src="images/tit_login.png"
+            alt="로그인 - 소셜 간편 로그인/ msp 멤버십 로그인"
+          />
+        </h3>
+        <dl class="log">
+          <dt class="id">아이디</dt>
+          <dd class="id">
+            <input
+              type="text"
+              class="it"
+              title="아이디"
+              id="email"
+              name="email"
+              placeholder="아이디"
+            />
+          </dd>
+          <dt class="pw">비밀번호</dt>
+          <dd class="pw">
+            <input
+              type="password"
+              class="it"
+              title="비밀번호"
+              id="passwd"
+              name="passwd"
+              maxlength="20"
+              placeholder="비밀번호"
+            />
+          </dd>
+        </dl>
+        <div class="check">
+          <label for="saveCheck">
+            <span
+              class="checkbox"
+              style="background-position: 0px 0px"
+              id="saveCheckbox"
+            ></span>
+            <input
+              type="checkbox"
+              class="styled"
+              name="chk_saveID"
+              value="Y"
+              id="saveCheck"
+            />로그인 상태 유지
+          </label>
+        </div>
+        <!-- todo: 입력된 값에 대한 검사 -->
+        <div class="mButton1">
+          <a href="#" id="loginBtn"
+            ><img src="images/btn_signin.png" alt="SIGN IN"
+          /></a>
+        </div>
+        <div class="link">
+          <a href="#">회원가입</a>
+          <span class="bar">|</span>
+          <a href="#">아이디/비밀번호 찾기</a>
+        </div>
+      </fieldset>
+    </form>
+  </body>
+</html>
